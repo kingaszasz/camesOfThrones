@@ -1,6 +1,5 @@
 // reveal modul patternnel!
 
-//A verzió:
 /*init() - //csak ez publikus
     getJsonContent()
         deleteDeadChar() 
@@ -11,16 +10,8 @@
     searchByName() 
         writeCharData();
 
-        //B. verzion--------------
-
-    getJsonContent() // odaadja a getJsont // public
-    sortByname(); // név szerint rendezi az adatokat //private
-    deleteDeadChar(), // törli a halott karaktereket //private
-    generateGrid() // legenerálja a 6*8-askarakter adathamazt // public
-    addEventListenerForGridElement(); // az egyes képekhez eseménykezelőt ad //private
-    writeCharData() // a kiválasztott karakter adatait jeleníti meg a jobb oldali sávba
-    searchByName() // név szerint keres // public v init()
 */
+
 
 var obj = (function () {
     function getData(url, callbackFunc) {
@@ -38,15 +29,12 @@ var obj = (function () {
         // itt a json content, benne a data változóban
         var userDatas = JSON.parse(xhttp.responseText);
         console.log(userDatas);
-
         var liveCharacters = dropDead(userDatas);
         sortByname(liveCharacters);
-        generateDivChild(liveCharacters);
-
+        objGrid.makeGrid(liveCharacters);
         document.getElementById("btn").addEventListener("click", function () {
-            search(liveCharacters);
+            searchObj.search(liveCharacters);
         });
-
     }
 
     function dropDead(data) {
@@ -60,7 +48,26 @@ var obj = (function () {
         return liveCharacters;
     }
 
+    function sortByname(data) {
+        var temp;
+        for (var i = 0; i < data.length - 1; i++) {
+            for (var j = i + 1; j < data.length; j++) {
+                if (data[i].name > data[j].name) {
+                    temp = data[i];
+                    data[i] = data[j];
+                    data[j] = temp;
+                }
+            }
+        }
+    }
 
+    return {
+        getData: getData,
+        successAjax: successAjax,
+    }
+})();
+
+var objGrid = (function () {
     function generateDivChild(data) {
         for (var i = 0; i < data.length; i++) {
             (function (e) {
@@ -81,38 +88,6 @@ var obj = (function () {
         }
     }
 
-    function showSelected(e, data) {
-        var pElements = document.querySelectorAll('p');
-        var imgElements = document.querySelectorAll('img');
-        for (var i in pElements) {
-            if (pElements[i].className == 'selected') {
-                pElements[i].setAttribute('class', 'unselected');
-                imgElements[i].setAttribute('class', 'unselected');
-            }
-        }
-        pElements[e].className = 'selected';
-        imgElements[e].className = 'selected';
-    }
-
-    function search(data) {
-        var text = document.getElementById('search');
-        var found = false;
-        if (!text.value || text.value == ' ') {
-            text.value = "Give me the name";
-        } else {
-            for (var i = 0; i < data.length; i++) {
-                if (data[i].name == text.value) {
-                    console.log(data[i].name);
-                    showDetail(i, data);
-                    found = true;
-                }
-            }
-            if (!found) {
-                text.value = "Character not found!";
-            }
-        }
-    }
-
     function showDetail(e, data) {
         var pic = document.getElementById('detail-pic');
         var name = document.getElementById('name');
@@ -126,28 +101,59 @@ var obj = (function () {
         //    console.log(data[e]);
     }
 
+    function showSelected(e, data) {
+        var pElements = document.querySelectorAll('p');
+        var imgElements = document.querySelectorAll('img');
+        for (var i in pElements) {
+            if (pElements[i].className == 'selected') {
+                pElements[i].setAttribute('class', 'unselected');
+                imgElements[i].setAttribute('class', 'unselected');
+            }
+        }
+        pElements[e].className = 'selected';
+        imgElements[e].className = 'selected';
+    }
 
-    function sortByname(data) {
-        var temp;
-        for (var i = 0; i < data.length - 1; i++) {
-            for (var j = i + 1; j < data.length; j++) {
-                if (data[i].name > data[j].name) {
-                    temp = data[i];
-                    data[i] = data[j];
-                    data[j] = temp;
+    return {
+        makeGrid: generateDivChild,
+        showDetail: showDetail
+    }
+})();
+
+
+
+var searchObj = (function () {
+    function search(data) {
+        var text = document.getElementById('search');
+        var found = false;
+        if (!text.value || text.value == ' ') {
+            text.value = "Give me the name";
+        } else {
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].name == text.value) {
+                    console.log(data[i].name);
+                    objGrid.showDetail(i, data);
+                    found = true;
                 }
+            }
+            if (!found) {
+                text.value = "Character not found!";
             }
         }
     }
 
-
     return {
-        getData: getData,
-        successAjax: successAjax,
+        search: search
     }
 })();
 
+
+
+
+
+
 obj.getData('json/characters.json', obj.successAjax);
+
 
 
 
