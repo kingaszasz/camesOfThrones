@@ -1,0 +1,142 @@
+body {
+    box-sizing: border-box;
+    width: auto;
+    margin: 0;
+    background: #D8D8D8 url("../assets/site/mapblue.jpg") no-repeat fixed center;
+    background-attachment: fixed;
+}
+
+.map {
+    width: 75%;
+    background-size: cover;
+    height: 800px;
+}
+
+.details {
+    position: fixed;
+    width: 25%;
+    top: 0;
+    right: 0;
+    background-color: #404040;
+    height: 800px;
+    color: white;
+}
+
+.map>div {
+    position: relative;
+    float: left;
+    padding: 10px;
+    text-align: center;
+    width: 120px;
+    height: 120px;
+}
+
+.map>div>img:hover {
+    cursor: pointer;
+}
+
+#detail-pic {
+    width: 330px;
+    height: 190px;
+    margin: auto;
+    padding: 0 5% 0% 5%;
+}
+
+img {
+    width: 85px;
+}
+
+p {
+    width: 90%;
+    margin: auto;
+    padding: 0 5%;
+    font-family: 'Bellefair', serif;
+    font-size: 0.8em;
+    font-variant: small-caps;
+    max-height: 200px;
+    overflow: auto;
+}
+
+h1 {
+    font-family: 'Bellefair', serif;
+    font-variant: small-caps;
+    text-align: center;
+}
+
+#name {
+    font: small-caps bold 1em 'Bellefair', serif;
+}
+
+#house {
+    position: absolute;
+    top: 290px;
+    right: 30px;
+    width: 30px;
+}
+
+.details>p {
+    font-family: Arial, Helvetica, sans-serif;
+    font-variant: normal;
+    line-height: 1.5em;
+    margin-top: 20px;
+}
+
+form {
+    position: absolute;
+    width: 100%;
+    top: 650px;
+    left: 15px;
+}
+
+#search,
+form>div {
+    position: relative;
+    float: left;
+    padding: 11px;
+    font-family: inherit;
+    border-width: 0;
+    border-radius: 3px;
+    font-size: 0.9em;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+form>div:nth-child(2) {
+    padding: 0;
+}
+
+#search {
+    width: 120%;
+    margin-left: 10px;
+    text-indent: 30px;
+}
+
+div>i {
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    vertical-align: middle;
+}
+
+form>div:nth-child(2)>i {
+    position: absolute;
+    margin-left: -65px;
+    z-index: 1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+form>div:first-child {
+    border-color: white;
+    border-style: solid;
+    border-width: 0.1em;
+    width: 15px;
+    height: 15px;
+    margin: 0;
+}
+
+form>div:first-child:hover {
+    cursor: pointer;
+}
