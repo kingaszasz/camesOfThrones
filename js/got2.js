@@ -67,16 +67,31 @@ var obj = (function () {
                 var div = document.createElement('div');
                 var img = document.createElement('img');
                 img.setAttribute("src", data[e].portrait);
+                img.setAttribute("class", "unselected");
                 img.addEventListener('click', function () {
                     showDetail(e, data);
                 });
                 div.appendChild(img);
                 var pElem = document.createElement('p');
                 pElem.innerHTML = data[i].name;
+                pElem.setAttribute("class", "unselected");
                 div.appendChild(pElem);
                 document.querySelector('.map').appendChild(div);
             })(i);
         }
+    }
+
+    function showSelected(e, data) {
+        var pElements = document.querySelectorAll('p');
+        var imgElements = document.querySelectorAll('img');
+        for (var i in pElements) {
+            if (pElements[i].className == 'selected') {
+                pElements[i].setAttribute('class', 'unselected');
+                imgElements[i].setAttribute('class', 'unselected');
+            }
+        }
+        pElements[e].className = 'selected';
+        imgElements[e].className = 'selected';
     }
 
     function search(data) {
@@ -107,6 +122,7 @@ var obj = (function () {
         name.textContent = data[e].name;
         text.textContent = data[e].bio;
         house.setAttribute("src", `assets/houses/${data[e].house}.png`);
+        showSelected(e, data);
         //    console.log(data[e]);
     }
 
@@ -126,7 +142,7 @@ var obj = (function () {
 
 
     return {
-        getData: getData, // de lehetne u.a. a neve is pupblicProp: pupblicProp,
+        getData: getData,
         successAjax: successAjax,
     }
 })();

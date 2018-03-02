@@ -2,8 +2,8 @@ body {
     box-sizing: border-box;
     width: auto;
     margin: 0;
-    background: #D8D8D8 url("../assets/site/mapblue.jpg") no-repeat fixed center;
-    background-attachment: fixed;
+    background: #D8D8D8 url("../assets/site/mapblue.jpg") no-repeat center fixed;
+    background-size: cover;
 }
 
 .map {
@@ -33,6 +33,22 @@ body {
 
 .map>div>img:hover {
     cursor: pointer;
+    opacity: 1;
+}
+
+p.selected {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    font-weight: bold;
+}
+
+img.selected {
+    opacity: 1;
+    filter: drop-shadow(0px 0px 10px black);
+}
+
+p.unselected {
+    background-color: 5% 5% 5% black;
 }
 
 #detail-pic {
@@ -40,10 +56,14 @@ body {
     height: 190px;
     margin: auto;
     padding: 0 5% 0% 5%;
+    opacity: 1;
+    filter: none;
 }
 
 img {
     width: 85px;
+    opacity: 0.8;
+    filter: sepia(70%);
 }
 
 p {
@@ -84,7 +104,7 @@ h1 {
 form {
     position: absolute;
     width: 100%;
-    top: 650px;
+    top: 550px;
     left: 15px;
 }
 
